@@ -9,18 +9,18 @@
 defined('_JEXEC') or die;
 
 namespace Jed\Component\Jed\Site\Helper;
-use Joomla\CMS\Component\ComponentHelper;
 
 /**
  * JED Helper
  *
- * @package   JED
  * @since     4.0.0
+ * @package   JED
  */
 class JedHelper
 {
 	/**
 	 * Function to format JED Extension Images
+	 * A lot of the JED 3 data has extra spaces and messyness in the restored data. This fixes that display.
 	 *
 	 * @param   string  $filename  The image filename
 	 * @param   string  $size      Size of image, small|large
@@ -50,5 +50,26 @@ class JedHelper
 
 		// Use CDN url
 		return 'https://extensionscdn.joomla.org/cache/fab_image/' . $imageSize;
+	}
+
+	/**
+	 * reformatTitle
+	 *
+	 * A lot of the restored JED 3 titles have extra spacing or missing punctuation. This fixes that for display.
+	 *
+	 * @param $l_str
+	 *
+	 * @return string
+	 *
+	 * @since  1.0
+	 */
+	public static function reformatTitle($l_str): string
+	{
+
+		$loc = str_replace(',', ', ', $l_str);
+		$loc = str_replace(' ,', ',', $loc);
+		$loc = str_replace('  ', ' ', $loc);
+
+		return trim($loc);
 	}
 }
